@@ -2,7 +2,6 @@
 session_start();
 require "tarea.php";
 
-// Protección por sesión: si no hay sesión activa, redirige a ingreso.php
 if (!isset($_SESSION['cedula'])) {
     header("Location: ingreso.php");
     exit;
@@ -10,7 +9,6 @@ if (!isset($_SESSION['cedula'])) {
 
 $usuario = $_SESSION['cedula'];
 
-// Procesa agregar / completar / eliminar antes de mostrar la página
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['agregar']) && trim($_POST['texto']) !== "") {
         guardarTarea($usuario, trim($_POST['texto']));
@@ -19,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif (isset($_POST['eliminar'])) {
         eliminarTarea($usuario, $_POST['id']);
     }
-    // Redirige para evitar reenvío del formulario al refrescar
+   
     header("Location: tareas.php");
     exit;
 }
