@@ -1,10 +1,8 @@
 <?php
-// Devuelve el nombre del archivo CSV de tareas propio de cada usuario
 function archivoTareas($usuario) {
     return "tareas_" . $usuario . ".csv";
 }
 
-// Agrega una nueva tarea con id único, texto y estado "pendiente"
 function guardarTarea($usuario, $texto) {
     $archivo = archivoTareas($usuario);
     $id = uniqid();
@@ -13,7 +11,6 @@ function guardarTarea($usuario, $texto) {
     fclose($fp);
 }
 
-// Retorna las tareas del usuario separadas en pendientes y completadas
 function listarTareas($usuario) {
     $archivo = archivoTareas($usuario);
     $pendientes = [];
@@ -36,7 +33,6 @@ function listarTareas($usuario) {
     return ['pendientes' => $pendientes, 'completadas' => $completadas];
 }
 
-// Cambia el estado de una tarea a "completada"
 function completarTarea($usuario, $id) {
     $archivo = archivoTareas($usuario);
     if (!file_exists($archivo)) return;
@@ -58,7 +54,6 @@ function completarTarea($usuario, $id) {
     fclose($fp);
 }
 
-// Elimina la línea correspondiente a la tarea indicada
 function eliminarTarea($usuario, $id) {
     $archivo = archivoTareas($usuario);
     if (!file_exists($archivo)) return;
